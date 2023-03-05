@@ -22,12 +22,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:minLines="1"
         android:text="@string/movie_name_example"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/previewImage"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/dateMovie"
         android:layout_width="0dp"
@@ -40,11 +45,23 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/countryMovie"
         app:layout_constraintTop_toBottomOf="@id/nameMovie" />
+
+    <ImageView
+        android:id="@+id/imageRating"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_star"
+        app:layout_constraintBottom_toTopOf="@id/descriptionMovie"
+        app:layout_constraintEnd_toStartOf="@id/ratingMovie"
+        app:layout_constraintTop_toBottomOf="@id/nameMovie" />
+
     <TextView
         android:id="@+id/ratingMovie"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="5dp"
         android:text="@string/example_rating"
         android:textColor="@color/black"
@@ -52,6 +69,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/dateMovie"
         app:layout_constraintTop_toBottomOf="@id/nameMovie" />
+
     <TextView
         android:id="@+id/countryMovie"
         android:layout_width="0dp"
@@ -70,9 +88,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:breakStrategy="balanced"
+        android:ellipsize="end"
+        android:textAlignment="viewStart"
         android:text="@string/description_example"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
