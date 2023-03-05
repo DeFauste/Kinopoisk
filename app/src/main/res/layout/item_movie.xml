@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/previewImage"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/purple_200"
+        app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
+        android:src="@drawable/ic_image"/>
+    <TextView
+        android:id="@+id/nameMovie"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/previewImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/movie_name_example"
+        />
+    <TextView
+        android:id="@+id/descriptionMovie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/previewImage"
+        app:layout_constraintTop_toBottomOf="@id/nameMovie"
+        android:text="@string/description_example"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:breakStrategy="balanced"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

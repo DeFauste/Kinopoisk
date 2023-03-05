@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Kinopoisk</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_bottom">MAIN</string>
+    <string name="bookmarks_bottom">Bookmarks</string>
+    <string name="statistic_bottom">Statistic</string>
+    <string name="movie_name_example">Movie name</string>
+    <string name="description_example">Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.</string>
+    <string name="example_rating">10</string>
+    <string name="example_country">Japan</string>
+    <string name="example_date">20-12-2022</string>
+</resources>
