@@ -15,4 +15,7 @@
     <string name="example_length_movie">120</string>
     <string name="content_description_play_trailer">Play trailer</string>
     <string name="example_description">Флот двенадцати колоний Кобола отправляется на поиски планеты Земля. Ребут одноименной космооперы 1978 года</string>
+    <string name="example_person">Пол Стенов</string>
+    <string name="similar_movie">Similar movie</string>
+    <string name="person_movie">Person</string>
 </resources>
