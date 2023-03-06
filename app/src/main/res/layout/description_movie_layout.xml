@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageIMDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/icon_imdb_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_description_play_trailer" />
+
+    <TextView
+        android:id="@+id/ratingIMDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/example_rating"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/imageIMDB"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageKP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/icon_imdb_logo"
+        app:layout_constraintEnd_toStartOf="@id/ratingKP"
+        app:layout_constraintStart_toEndOf="@+id/ratingIMDB"
+        app:layout_constraintStart_toStartOf="@id/ratingIMDB"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ratingKP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/example_rating"
+        android:layout_marginStart="10dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/imageKP"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/countryMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:text="@string/example_country"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingIMDB" />
+    <TextView
+        android:id="@+id/dateMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="@string/example_date"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countryMovie" />
+    <TextView
+        android:id="@+id/lengthMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/example_length_movie"
+        app:layout_constraintTop_toBottomOf="@id/dateMovie"
+        app:layout_constraintStart_toStartOf="@id/dateMovie"/>
+    <TextView
+        android:id="@+id/lengthMinMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metric_length"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/lengthMovie"
+        app:layout_constraintTop_toTopOf="@id/lengthMovie"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

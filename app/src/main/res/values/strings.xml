@@ -7,7 +7,12 @@
     <string name="statistic_bottom">Statistic</string>
     <string name="movie_name_example">Movie name</string>
     <string name="description_example">Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.</string>
-    <string name="example_rating">10</string>
+    <string name="example_rating">10+</string>
     <string name="example_country">Japan</string>
     <string name="example_date">20-12-2022</string>
+    <string name="button_trailer">Trailer</string>
+    <string name="metric_length">Мин</string>
+    <string name="example_length_movie">120</string>
+    <string name="content_description_play_trailer">Play trailer</string>
+    <string name="example_description">Флот двенадцати колоний Кобола отправляется на поиски планеты Земля. Ребут одноименной космооперы 1978 года</string>
 </resources>
