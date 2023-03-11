@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".mainFragment.innerFragment.movies.MoviesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNewMovie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="40sp"
-        android:text="MOVIES" />
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="-166dp"
+        tools:listitem="@layout/item_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

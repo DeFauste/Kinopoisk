@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.mainFragment.innerFragment.movies.MoviesFragment
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
         MoviesFragment.newInstance(),
         SerialsFragment.newInstance()
     )
-    private val fragName= listOf(
+    private val fragName = listOf(
         "Name",
         "Top 100",
         "Movies",
@@ -38,17 +39,20 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val adapter = VpAdapterMain(this,fragList)
-        binding.viewPagMain.adapter = adapter
-        TabLayoutMediator(binding.tabLayoutMain, binding.viewPagMain){
-            tab,pos -> tab.text = fragName[pos]
-        }.attach()
+        initTabLayout()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    private fun initTabLayout() {
+        val adapter = VpAdapterMain(this, fragList)
+        binding.viewPagMain.adapter = adapter
+        TabLayoutMediator(binding.tabLayoutMain, binding.viewPagMain) { tab, pos ->
+            tab.text = fragName[pos]
+        }.attach()
     }
 
     override fun onDestroyView() {
