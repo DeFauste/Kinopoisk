@@ -5,15 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.kinopoisk.R
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.mainFragment.innerFragment.movies.MoviesFragment
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
 import com.example.kinopoisk.mainFragment.innerFragment.serials.SerialsFragment
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment() {
+    private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+
+    private lateinit var jobWeather: Job
+
     private val fragList = listOf(
         NewMovieFragment.newInstance(),
         TopMoviesFragment.newInstance(),
@@ -45,6 +52,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateMovies()
     }
 
     private fun initTabLayout() {
@@ -55,6 +64,14 @@ class MainFragment : Fragment() {
         }.attach()
     }
 
+    private fun updateMovies() {
+        fragmentViewModel.updateMovies()
+        jobWeather = lifecycleScope.launchWhenCreated {
+            fragmentViewModel.newMoviesSharedFlow.collect() {
+                println("!! ${it.size}")
+            }
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
