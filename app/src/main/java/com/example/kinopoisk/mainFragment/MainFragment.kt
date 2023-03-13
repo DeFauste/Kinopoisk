@@ -15,11 +15,9 @@ import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class MainFragment : Fragment() {
-    private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
-
-    private lateinit var jobWeather: Job
 
     private val fragList = listOf(
         NewMovieFragment.newInstance(),
@@ -28,7 +26,7 @@ class MainFragment : Fragment() {
         SerialsFragment.newInstance()
     )
     private val fragName = listOf(
-        "Name",
+        "New",
         "Top 100",
         "Movies",
         "Serials"
@@ -53,7 +51,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        updateMovies()
     }
 
     private fun initTabLayout() {
@@ -64,14 +61,6 @@ class MainFragment : Fragment() {
         }.attach()
     }
 
-    private fun updateMovies() {
-        fragmentViewModel.updateMovies()
-        jobWeather = lifecycleScope.launchWhenCreated {
-            fragmentViewModel.newMoviesSharedFlow.collect() {
-                println("!! ${it.size}")
-            }
-        }
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

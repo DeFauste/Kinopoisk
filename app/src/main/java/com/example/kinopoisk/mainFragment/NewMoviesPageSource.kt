@@ -20,7 +20,6 @@ class NewMoviesPageSource(
             val page: Int = params.key ?: 1
             val pageSize: Int = params.loadSize.coerceAtMost(20)
             val response = service.getNewMovies(page, pageSize)
-
             if (response.isSuccessful) {
                 val movies = checkNotNull(response.body()).docs
                 val nextKey = if (movies.size < pageSize) null else page + 1

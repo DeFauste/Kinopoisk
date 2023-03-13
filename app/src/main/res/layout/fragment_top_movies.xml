@@ -5,12 +5,5 @@
     android:layout_height="match_parent"
     tools:context=".mainFragment.innerFragment.top.TopMoviesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerNewMovie"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="-166dp"
-        tools:listitem="@layout/item_movie" />
 
 </FrameLayout>

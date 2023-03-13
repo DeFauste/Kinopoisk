@@ -2,6 +2,9 @@ package com.example.kinopoisk.mainFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.kinopoisk.mainFragment.api.RetrofitClient
 import com.example.kinopoisk.mainFragment.models.Movies
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +20,7 @@ class MainFragmentViewModel : ViewModel() {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClient.api.getNewMovies(1,3)
+                    RetrofitClient.api.getNewMovies(1, 3)
                         .body()?.docs
                 _newMoviesSharedFlow.emit(response ?: arrayListOf())
             } catch (e: IOException) {
@@ -26,7 +29,13 @@ class MainFragmentViewModel : ViewModel() {
                 println("HttpException")
             }
 
-
         }
     }
+
+    val flowNewMovies = Pager(
+        PagingConfig(10,
+            enablePlaceholders = false),
+        pagingSourceFactory = { NewMoviesPageSource(RetrofitClient.api) }
+    ).flow
+        .cachedIn(viewModelScope)
 }
