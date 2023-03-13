@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 class MainFragment : Fragment() {
-
     private val fragList = listOf(
         NewMovieFragment.newInstance(),
         TopMoviesFragment.newInstance(),
@@ -50,7 +49,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     private fun initTabLayout() {
@@ -60,6 +58,7 @@ class MainFragment : Fragment() {
             tab.text = fragName[pos]
         }.attach()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -20,11 +20,12 @@ class RecyclerAdapterMainFragment :
         fun bind(movie: Movies?) {
             with(binding) {
                 nameMovie.text = movie?.name
-                countryMovie.text = movie?.premiere?.country
+                countryMovie.text = movie?.premiere?.country?.filter { !it.isWhitespace()}
                 dateMovie.text = movie?.year.toString()
                 ratingMovie.text = movie?.rating?.imdb.toString()
                 descriptionMovie.text = movie?.description
-                val imgUrl = movie?.poster?.previewUrl
+                var imgUrl = movie?.poster?.previewUrl
+                if(imgUrl == null) imgUrl = movie?.poster?.url
                 Glide
                     .with(nameMovie)
                     .load(imgUrl)

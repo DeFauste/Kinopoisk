@@ -20,7 +20,7 @@ class MainFragmentViewModel : ViewModel() {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClient.api.getNewMovies(1, 3)
+                    RetrofitClient.api.getNewMovies(1, 10)
                         .body()?.docs
                 _newMoviesSharedFlow.emit(response ?: arrayListOf())
             } catch (e: IOException) {
