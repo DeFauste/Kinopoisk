@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
 import com.example.kinopoisk.mainFragment.api.ApiServiceNewMovie
 import com.example.kinopoisk.mainFragment.models.Movies
+import java.util.*
 
 class NewMoviesPageSource(
     private val service: ApiServiceNewMovie,
@@ -19,7 +20,9 @@ class NewMoviesPageSource(
         try {
             val page: Int = params.key ?: 1
             val pageSize: Int = params.loadSize.coerceAtMost(20)
-            val response = service.getNewMovies(page, pageSize)
+            val calendar = Calendar.getInstance(TimeZone.getDefault());
+            val year = calendar.get(Calendar.YEAR).toString()
+            val response = service.getNewMovies(page, pageSize, "1860-$year")
             if (response.isSuccessful) {
                 val movies = checkNotNull(response.body()).docs
                 val nextKey = if (movies.size < pageSize) null else page + 1

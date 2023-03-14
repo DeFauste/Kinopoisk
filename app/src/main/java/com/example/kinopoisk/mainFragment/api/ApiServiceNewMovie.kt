@@ -20,7 +20,6 @@ interface ApiServiceNewMovie {
             "selectFields=poster.previewUrl&" +
             "selectFields=countries&" +
             "sortField=year&sortType=-1&" +
-            "year=1860-2023&" +
             "status=completed&" +
             "name=!null&" +
             "poster.url=!null&" +
@@ -28,5 +27,6 @@ interface ApiServiceNewMovie {
     suspend fun getNewMovies(
         @Query("page") @IntRange(from = 1) page: Int = 1,
         @Query("limit") @IntRange(from = 1, to = 10) limit: Int = 10,
+        @Query("year") year: String = "1860-2023"
     ) :Response<ResponsesApi>
 }
