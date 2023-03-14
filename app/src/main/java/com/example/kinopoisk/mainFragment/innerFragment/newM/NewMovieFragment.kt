@@ -5,16 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.kinopoisk.R
-import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.databinding.FragmentNewMovieBinding
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
-import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMainFragment
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterNewMovie
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +21,7 @@ class NewMovieFragment : Fragment() {
 
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
 
-    private val pagingAdapter = RecyclerAdapterMainFragment()
+    private val pagingAdapter = RecyclerAdapterNewMovie()
     private lateinit var jobMovies: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {

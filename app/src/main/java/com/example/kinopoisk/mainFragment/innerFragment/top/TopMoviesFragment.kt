@@ -5,11 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.R
+import com.example.kinopoisk.databinding.FragmentNewMovieBinding
+import com.example.kinopoisk.databinding.FragmentTopMoviesBinding
+import com.example.kinopoisk.mainFragment.MainFragmentViewModel
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterNewMovie
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterTopMovie
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class TopMoviesFragment : Fragment() {
+    private var _binding: FragmentTopMoviesBinding? = null
+    private val binding get() = _binding!!
 
+    private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+
+    private val pagingAdapter = RecyclerAdapterTopMovie()
+
+    private lateinit var jobMovies: Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -19,11 +37,28 @@ class TopMoviesFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top_movies, container, false)
+        _binding = FragmentTopMoviesBinding.inflate(inflater, container, false)
+        /*hide action bar*/
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            fragmentViewModel.flowTopMovies.collectLatest { pagingData  ->
+                pagingAdapter.submitData(pagingData)
+            }
+        }
+        binding.recyclerTopMovie.adapter = pagingAdapter
+        binding.recyclerTopMovie.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     companion object {
         @JvmStatic
         fun newInstance() = TopMoviesFragment()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -11,8 +11,8 @@ import com.example.kinopoisk.databinding.ItemMovieBinding
 import com.example.kinopoisk.mainFragment.models.Movies
 
 
-class RecyclerAdapterMainFragment :
-    PagingDataAdapter<Movies, RecyclerAdapterMainFragment.MovieViewHolder>(
+class RecyclerAdapterTopMovie :
+    PagingDataAdapter<Movies, RecyclerAdapterTopMovie.MovieViewHolder>(
         diffCallback) {
 
     class MovieViewHolder(val binding: ItemMovieBinding) :

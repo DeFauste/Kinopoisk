@@ -20,7 +20,7 @@ class MainFragmentViewModel : ViewModel() {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClient.api.getNewMovies(1, 10)
+                    RetrofitClient.apiNewMovies.getNewMovies(1, 10)
                         .body()?.docs
                 _newMoviesSharedFlow.emit(response ?: arrayListOf())
             } catch (e: IOException) {
@@ -35,7 +35,14 @@ class MainFragmentViewModel : ViewModel() {
     val flowNewMovies = Pager(
         PagingConfig(10,
             enablePlaceholders = false),
-        pagingSourceFactory = { NewMoviesPageSource(RetrofitClient.api) }
+        pagingSourceFactory = { NewMoviesPageSource(RetrofitClient.apiNewMovies) }
+    ).flow
+        .cachedIn(viewModelScope)
+
+    val flowTopMovies = Pager(
+        PagingConfig(10,
+            enablePlaceholders = false),
+        pagingSourceFactory = { TopMoviesPageSource(RetrofitClient.apiTopMovie) }
     ).flow
         .cachedIn(viewModelScope)
 }
