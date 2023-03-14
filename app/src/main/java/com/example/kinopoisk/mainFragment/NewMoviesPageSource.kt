@@ -3,11 +3,11 @@ package com.example.kinopoisk.mainFragment
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
-import com.example.kinopoisk.mainFragment.api.ApiServiceMainFragment
+import com.example.kinopoisk.mainFragment.api.ApiServiceNewMovie
 import com.example.kinopoisk.mainFragment.models.Movies
 
 class NewMoviesPageSource(
-    private val service: ApiServiceMainFragment,
+    private val service: ApiServiceNewMovie,
 ) : PagingSource<Int, Movies>() {
     override fun getRefreshKey(state: PagingState<Int, Movies>): Int? {
         val anchorPosition = state.anchorPosition ?: return null

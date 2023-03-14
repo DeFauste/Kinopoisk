@@ -20,7 +20,8 @@ class RecyclerAdapterMainFragment :
         fun bind(movie: Movies?) {
             with(binding) {
                 nameMovie.text = movie?.name
-                countryMovie.text = movie?.premiere?.country?.filter { !it.isWhitespace()}
+                val countries = movie?.countries
+                countryMovie.text = if(countries?.isNotEmpty() == true) countries.get(0).name.filter { !it.isWhitespace()} else "Not country".filter { !it.isWhitespace()}
                 dateMovie.text = movie?.year.toString()
                 ratingMovie.text = movie?.rating?.imdb.toString()
                 descriptionMovie.text = movie?.description
