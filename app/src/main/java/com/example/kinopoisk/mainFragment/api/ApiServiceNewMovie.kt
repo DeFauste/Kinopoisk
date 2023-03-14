@@ -22,6 +22,8 @@ interface ApiServiceNewMovie {
             "sortField=year&sortType=-1&" +
             "year=1860-2023&" +
             "status=completed&" +
+            "name=!null&" +
+            "poster.url=!null&" +
             "token=C2YM9N6-ECGMM50-GFAA00K-Y7FSNBQ")
     suspend fun getNewMovies(
         @Query("page") @IntRange(from = 1) page: Int = 1,
