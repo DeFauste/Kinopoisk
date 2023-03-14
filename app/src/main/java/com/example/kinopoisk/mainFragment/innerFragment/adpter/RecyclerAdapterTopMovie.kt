@@ -1,6 +1,7 @@
 package com.example.kinopoisk.mainFragment.innerFragment.adpter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -17,7 +18,7 @@ class RecyclerAdapterTopMovie :
 
     class MovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movies?) {
+        fun bind(movie: Movies?, position: Int) {
             with(binding) {
                 nameMovie.text = movie?.name
                 val countries = movie?.countries
@@ -25,6 +26,10 @@ class RecyclerAdapterTopMovie :
                 dateMovie.text = movie?.year.toString()
                 ratingMovie.text = movie?.rating?.imdb.toString()
                 descriptionMovie.text = movie?.description
+                binding.topPosition.apply {
+                    visibility = View.VISIBLE
+                    text = position.plus(1).toString()
+                }
                 var imgUrl = movie?.poster?.previewUrl
                 if(imgUrl == null) imgUrl = movie?.poster?.url
                 Glide
@@ -48,7 +53,7 @@ class RecyclerAdapterTopMovie :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, position)
     }
 
     companion object {

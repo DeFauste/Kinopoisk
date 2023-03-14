@@ -18,8 +18,8 @@ interface ApiServiceTopMovie {
             "selectFields=poster.url&" +
             "selectFields=poster.previewUrl&" +
             "selectFields=countries&" +
-            "sortField=year&" +
-            "sortType=-1&" +
+            "sortField=top250&" +
+            "sortType=1&" +
             "top250=%21null&" +
             "status=completed&" +
             "name=!null&" +
