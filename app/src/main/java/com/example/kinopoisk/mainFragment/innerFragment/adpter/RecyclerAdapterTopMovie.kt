@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.ItemMovieBinding
-import com.example.kinopoisk.mainFragment.models.Movies
+import com.example.kinopoisk.mainFragment.models.recyclerModel.Movies
 
 
 class RecyclerAdapterTopMovie :

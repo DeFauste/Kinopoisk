@@ -5,17 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.kinopoisk.databinding.FragmentMainBinding
-import com.example.kinopoisk.mainFragment.innerFragment.movies.MoviesFragment
+import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.MoviesFragment
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
-import com.example.kinopoisk.mainFragment.innerFragment.serials.SerialsFragment
+import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.SerialsFragment
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 
 class MainFragment : Fragment() {
     private val fragList = listOf(

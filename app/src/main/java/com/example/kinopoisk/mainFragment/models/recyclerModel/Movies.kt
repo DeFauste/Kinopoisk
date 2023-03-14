@@ -1,4 +1,4 @@
-package com.example.kinopoisk.mainFragment.models
+package com.example.kinopoisk.mainFragment.models.recyclerModel
 
 data class Movies(
     val alternativeName: String,

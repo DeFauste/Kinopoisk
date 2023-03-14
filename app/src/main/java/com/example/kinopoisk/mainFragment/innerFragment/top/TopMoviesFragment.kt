@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kinopoisk.R
-import com.example.kinopoisk.databinding.FragmentNewMovieBinding
 import com.example.kinopoisk.databinding.FragmentTopMoviesBinding
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
-import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterNewMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterTopMovie
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest

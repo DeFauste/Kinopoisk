@@ -1,4 +1,4 @@
-package com.example.kinopoisk.mainFragment.innerFragment.newM
+package com.example.kinopoisk.mainFragment.innerFragment.serialsMovies
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kinopoisk.R
+import com.example.kinopoisk.databinding.FragmentMoviesBinding
 import com.example.kinopoisk.databinding.FragmentNewMovieBinding
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMovie
@@ -15,8 +17,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class NewMovieFragment : Fragment() {
-    private var _binding: FragmentNewMovieBinding? = null
+class MoviesFragment : Fragment() {
+
+    private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
 
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
@@ -32,7 +35,7 @@ class NewMovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = FragmentNewMovieBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
         /*hide action bar*/
         return binding.root
     }
@@ -41,17 +44,18 @@ class NewMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            fragmentViewModel.flowNewMovies.collectLatest { pagingData  ->
+            fragmentViewModel.flowTypeMovie.collectLatest { pagingData  ->
                 pagingAdapter.submitData(pagingData)
             }
         }
-        binding.recyclerNewMovie.adapter = pagingAdapter
-        binding.recyclerNewMovie.layoutManager = LinearLayoutManager(requireActivity())
+        binding.recyclerMovies.adapter = pagingAdapter
+        binding.recyclerMovies.layoutManager = LinearLayoutManager(requireActivity())
     }
+
 
     companion object {
         @JvmStatic
-        fun newInstance() = NewMovieFragment()
+        fun newInstance() = MoviesFragment()
     }
     override fun onDestroyView() {
         super.onDestroyView()

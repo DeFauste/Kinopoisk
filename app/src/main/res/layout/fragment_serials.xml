@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainFragment.innerFragment.serials.SerialsFragment">
+    tools:context=".mainFragment.innerFragment.serialsMovies.SerialsFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSeries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="-166dp"
+        tools:listitem="@layout/item_movie" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

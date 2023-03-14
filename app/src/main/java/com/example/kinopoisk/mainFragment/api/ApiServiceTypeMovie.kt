@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiServiceNewMovie {
+interface ApiServiceTypeMovie {
     @GET("movie?" +
             "selectFields=id" +
             "&selectFields=name&" +
@@ -18,7 +18,6 @@ interface ApiServiceNewMovie {
             "selectFields=poster.url&" +
             "selectFields=poster.previewUrl&" +
             "selectFields=countries&" +
-            "sortField=year&sortType=-1&" +
             "status=completed&" +
             "name=!null&" +
             "poster.url=!null&" +
@@ -26,6 +25,7 @@ interface ApiServiceNewMovie {
     suspend fun getMovies(
         @Query("page") @IntRange(from = 1) page: Int = 1,
         @Query("limit") @IntRange(from = 1, to = 10) limit: Int = 10,
-        @Query("year") year: String = "1860-2023"
+        @Query("year") year: String = "1860-2023",
+        @Query("type") type: String = "movie"
     ) :Response<ResponsesApi>
 }
