@@ -13,6 +13,7 @@ import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
 import com.example.kinopoisk.descriptionFragment.Adapter.RecyclerAdapterPerson
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -43,14 +44,17 @@ class DescriptionMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         descriptionUpdate()
-
-        binding.recyclerPerson.adapter = adapter
-        binding.recyclerPerson.layoutManager = LinearLayoutManager(requireActivity())
-
+        updatePerson()
     }
     private fun updatePerson() {
+        fragmentViewModel.getPersons()
+        binding.recyclerPerson.adapter = adapter
         lifecycleScope.launchWhenCreated {
-
+            fragmentViewModel.persons.collect() { persons ->
+                if(persons.isNotEmpty()) {
+                    adapter.cites = persons
+                }
+            }
         }
     }
     private fun descriptionUpdate() {

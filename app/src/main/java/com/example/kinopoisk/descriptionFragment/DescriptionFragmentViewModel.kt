@@ -36,7 +36,7 @@ class DescriptionFragmentViewModel : ViewModel() {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClientDescription.apiPersonsMovie.getPersons(666).body()?.docPeople?.get(0)?.persons
+                    RetrofitClientDescription.apiPersonsMovie.getPersons(666).body()?.docs?.get(0)?.persons
                 _persons.emit(response?: arrayListOf())
             } catch (e: IOException) {
                 println("onCreate: not internet")
