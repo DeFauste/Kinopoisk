@@ -9,7 +9,7 @@ import com.example.kinopoisk.mainFragment.api.RetrofitClient
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMoviesPageSource
 import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.TypeMoviesPageSource
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesPageSource
-import com.example.kinopoisk.mainFragment.models.recyclerModel.Movies
+import com.example.kinopoisk.mainFragment.model.Movies
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

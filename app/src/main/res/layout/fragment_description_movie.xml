@@ -12,29 +12,12 @@
         android:layout_height="wrap_content"
         >
 
-        <include
-            android:id="@+id/top_menu"
-            layout="@layout/top_menu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/posterMovie"
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:src="@drawable/ic_image"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@id/ratingMovie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:background="#B5B2B2"
-            android:text="@string/example_rating"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/posterMovie"
-            app:layout_constraintEnd_toEndOf="@+id/posterMovie" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/sharedMovie"
@@ -164,5 +147,10 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/similarMovie"
             tools:listitem="@layout/item_movie_mini" />
+        <include
+            android:id="@+id/top_menu"
+            layout="@layout/top_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

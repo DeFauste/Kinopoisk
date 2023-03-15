@@ -30,7 +30,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top 100" />
+            android:text="Top 250" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -52,4 +52,12 @@
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayoutMain" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentDescription"
+        android:name="com.example.kinopoisk.descriptionFragment.DescriptionMovieFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:background="@color/white"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

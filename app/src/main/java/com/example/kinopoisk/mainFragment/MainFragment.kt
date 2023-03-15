@@ -21,7 +21,7 @@ class MainFragment : Fragment() {
     )
     private val fragName = listOf(
         "New",
-        "Top 100",
+        "Top 250",
         "Movies",
         "Serials"
     )

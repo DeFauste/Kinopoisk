@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
 import com.example.kinopoisk.mainFragment.api.ApiServiceTypeMovie
-import com.example.kinopoisk.mainFragment.models.recyclerModel.Movies
+import com.example.kinopoisk.mainFragment.model.Movies
 import java.util.*
 
 class TypeMoviesPageSource(
