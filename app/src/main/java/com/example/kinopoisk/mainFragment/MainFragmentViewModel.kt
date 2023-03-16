@@ -17,21 +17,19 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class MainFragmentViewModel : ViewModel() {
-    private var _newMoviesSharedFlow = MutableSharedFlow<List<Movies>>()
-    val newMoviesSharedFlow = _newMoviesSharedFlow.asSharedFlow()
-    fun updateMovies() {
-        viewModelScope.launch() {
-            try {
-                val response =
-                    RetrofitClient.apiNewMovies.getMovies(1, 10)
-                        .body()?.docs
-                _newMoviesSharedFlow.emit(response ?: arrayListOf())
-            } catch (e: IOException) {
-                println("onCreate: not internet")
-            } catch (e: HttpException) {
-                println("HttpException")
-            }
 
+    private var _stateFragmentDescription = MutableSharedFlow<Pair<Boolean, Int>>()
+    val stateFragmentDescription = _stateFragmentDescription.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            _stateFragmentDescription.emit(Pair(false, 0))
+        }
+    }
+
+    fun stateFragmentDescription(state: Boolean, id: Int) {
+        viewModelScope.launch {
+            _stateFragmentDescription.emit(Pair(state, id))
         }
     }
 

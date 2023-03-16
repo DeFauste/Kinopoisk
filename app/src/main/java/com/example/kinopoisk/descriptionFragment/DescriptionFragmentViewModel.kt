@@ -15,11 +15,11 @@ class DescriptionFragmentViewModel : ViewModel() {
     private var _movie = MutableSharedFlow<ResponsesDescription?>()
     val movie = _movie.asSharedFlow()
 
-    fun getMovie() {
+    fun getMovie(id: Int) {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClientDescription.apiDescriptionMovie.getMovie("666").body()
+                    RetrofitClientDescription.apiDescriptionMovie.getMovie(id).body()
                 _movie.emit(response)
             } catch (e: IOException) {
                 println("onCreate: not internet")
@@ -32,11 +32,11 @@ class DescriptionFragmentViewModel : ViewModel() {
     private var _persons = MutableSharedFlow<List<Person>>()
     val persons = _persons.asSharedFlow()
 
-    fun getPersons() {
+    fun getPersons(id: Int) {
         viewModelScope.launch() {
             try {
                 val response =
-                    RetrofitClientDescription.apiPersonsMovie.getPersons(666).body()?.docs?.get(0)?.persons
+                    RetrofitClientDescription.apiPersonsMovie.getPersons(id).body()?.docs?.get(0)?.persons
                 _persons.emit(response?: arrayListOf())
             } catch (e: IOException) {
                 println("onCreate: not internet")

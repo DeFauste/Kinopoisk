@@ -12,13 +12,13 @@ import com.example.kinopoisk.databinding.ItemMovieBinding
 import com.example.kinopoisk.mainFragment.model.Movies
 
 
-class RecyclerAdapterTopMovie :
+class RecyclerAdapterTopMovie(private val onClickListenerMovie: onClickListenerMovie) :
     PagingDataAdapter<Movies, RecyclerAdapterTopMovie.MovieViewHolder>(
         diffCallback) {
 
     class MovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movies?, position: Int) {
+        fun bind(movie: Movies?, position: Int, onClickListenerMovie: onClickListenerMovie) {
             with(binding) {
                 nameMovie.text = movie?.name
                 val countries = movie?.countries
@@ -38,6 +38,9 @@ class RecyclerAdapterTopMovie :
                     .centerCrop()
                     .placeholder(R.drawable.progress_bar)
                     .into(previewImage)
+                itemViewLayout.setOnClickListener {
+                    onClickListenerMovie.onCLick(movie!!.id)
+                }
             }
         }
     }
@@ -53,7 +56,7 @@ class RecyclerAdapterTopMovie :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, position)
+        holder.bind(item, position, onClickListenerMovie)
     }
 
     companion object {

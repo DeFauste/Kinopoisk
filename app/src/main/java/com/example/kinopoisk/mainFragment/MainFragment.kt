@@ -5,14 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.MoviesFragment
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
 import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.SerialsFragment
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
+    private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+
     private val fragList = listOf(
         NewMovieFragment.newInstance(),
         TopMoviesFragment.newInstance(),
@@ -52,6 +58,20 @@ class MainFragment : Fragment() {
         TabLayoutMediator(binding.tabLayoutMain, binding.viewPagMain) { tab, pos ->
             tab.text = fragName[pos]
         }.attach()
+
+        checkStateDescriptionFragment()
+    }
+
+    private fun checkStateDescriptionFragment() {
+        lifecycleScope.launch {
+            fragmentViewModel.stateFragmentDescription.collect() {
+                if(it.first) {
+                    binding.fragmentDescription.visibility = View.VISIBLE
+                } else {
+                    binding.fragmentDescription.visibility = View.GONE
+                }
+            }
+        }
     }
 
 

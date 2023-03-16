@@ -57,7 +57,7 @@
         android:name="com.example.kinopoisk.descriptionFragment.DescriptionMovieFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/white"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

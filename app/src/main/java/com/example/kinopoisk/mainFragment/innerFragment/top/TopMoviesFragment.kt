@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.databinding.FragmentTopMoviesBinding
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterTopMovie
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,7 +23,11 @@ class TopMoviesFragment : Fragment() {
 
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
 
-    private val pagingAdapter = RecyclerAdapterTopMovie()
+    private val pagingAdapter = RecyclerAdapterTopMovie(object : onClickListenerMovie {
+        override fun onCLick(id: Int) {
+            fragmentViewModel.stateFragmentDescription(true, id)
+        }
+    })
 
     private lateinit var jobMovies: Job
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
 import com.example.kinopoisk.descriptionFragment.Adapter.RecyclerAdapterPerson
+import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +24,9 @@ class DescriptionMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val fragmentViewModel: DescriptionFragmentViewModel by activityViewModels()
+    private val mainFragmentViewModel: MainFragmentViewModel by activityViewModels()
 
+    private var pair: Pair<Boolean,Int> = Pair(false, 666)
     private val adapter = RecyclerAdapterPerson()
 
     private lateinit var jobMovie: Job
@@ -43,11 +46,23 @@ class DescriptionMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        descriptionUpdate()
-        updatePerson()
+        updatePair()
+        binding.topMenu.backButton.setOnClickListener {
+            mainFragmentViewModel.stateFragmentDescription(false, pair.second)
+        }
+    }
+
+    private fun updatePair() {
+        lifecycleScope.launchWhenCreated {
+            mainFragmentViewModel.stateFragmentDescription.collect() {
+                pair = it
+                descriptionUpdate()
+                updatePerson()
+            }
+        }
     }
     private fun updatePerson() {
-        fragmentViewModel.getPersons()
+        fragmentViewModel.getPersons(pair.second)
         binding.recyclerPerson.adapter = adapter
         lifecycleScope.launchWhenCreated {
             fragmentViewModel.persons.collect() { persons ->
@@ -58,7 +73,7 @@ class DescriptionMovieFragment : Fragment() {
         }
     }
     private fun descriptionUpdate() {
-        fragmentViewModel.getMovie()
+        fragmentViewModel.getMovie(pair.second)
 
         jobMovie = lifecycleScope.launch() {
             fragmentViewModel.movie.collect() { response ->

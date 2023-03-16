@@ -11,7 +11,7 @@ import com.example.kinopoisk.databinding.ItemPersonBinding
 import com.example.kinopoisk.descriptionFragment.models.modelPersons.Person
 
 
-class RecyclerAdapterPerson : RecyclerView.Adapter<RecyclerAdapterPerson.PersonViewHolder>() {
+class RecyclerAdapterPerson() : RecyclerView.Adapter<RecyclerAdapterPerson.PersonViewHolder>() {
 
     inner class PersonViewHolder(val binding: ItemPersonBinding) :
         RecyclerView.ViewHolder(binding.root)
