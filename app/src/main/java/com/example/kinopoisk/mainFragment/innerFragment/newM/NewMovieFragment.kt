@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.databinding.FragmentNewMovieBinding
+import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
@@ -20,11 +21,12 @@ class NewMovieFragment : Fragment() {
     private var _binding: FragmentNewMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+    private val fragmentMainViewModel: MainFragmentViewModel by activityViewModels()
+    private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentViewModel.stateFragmentDescription(true, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(true, id)
         }
     })
     private lateinit var jobMovies: Job
@@ -46,7 +48,7 @@ class NewMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            fragmentViewModel.flowNewMovies.collectLatest { pagingData  ->
+            fragmentMainViewModel.flowNewMovies.collectLatest { pagingData  ->
                 pagingAdapter.submitData(pagingData)
             }
         }

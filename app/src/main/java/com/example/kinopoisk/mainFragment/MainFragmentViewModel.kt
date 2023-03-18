@@ -18,21 +18,6 @@ import java.io.IOException
 
 class MainFragmentViewModel : ViewModel() {
 
-    private var _stateFragmentDescription = MutableSharedFlow<Pair<Boolean, Int>>()
-    val stateFragmentDescription = _stateFragmentDescription.asSharedFlow()
-
-    init {
-        viewModelScope.launch {
-            _stateFragmentDescription.emit(Pair(false, 0))
-        }
-    }
-
-    fun stateFragmentDescription(state: Boolean, id: Int) {
-        viewModelScope.launch {
-            _stateFragmentDescription.emit(Pair(state, id))
-        }
-    }
-
     val flowNewMovies = Pager(
         PagingConfig(10,
             enablePlaceholders = false),

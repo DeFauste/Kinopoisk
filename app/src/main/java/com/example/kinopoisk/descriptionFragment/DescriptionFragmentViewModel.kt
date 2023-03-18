@@ -15,6 +15,20 @@ class DescriptionFragmentViewModel : ViewModel() {
     private var _movie = MutableSharedFlow<ResponsesDescription?>()
     val movie = _movie.asSharedFlow()
 
+    private var _stateFragmentDescription = MutableSharedFlow<Pair<Boolean, Int>>()
+    val stateFragmentDescription = _stateFragmentDescription.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            _stateFragmentDescription.emit(Pair(false, 0))
+        }
+    }
+
+    fun stateFragmentDescription(state: Boolean, id: Int) {
+        viewModelScope.launch {
+            _stateFragmentDescription.emit(Pair(state, id))
+        }
+    }
     fun getMovie(id: Int) {
         viewModelScope.launch() {
             try {

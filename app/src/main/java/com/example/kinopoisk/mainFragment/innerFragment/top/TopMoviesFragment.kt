@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.databinding.FragmentTopMoviesBinding
+import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterTopMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
@@ -22,14 +23,16 @@ class TopMoviesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+    private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
     private val pagingAdapter = RecyclerAdapterTopMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentViewModel.stateFragmentDescription(true, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(true, id)
         }
     })
 
     private lateinit var jobMovies: Job
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -46,8 +49,8 @@ class TopMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            fragmentViewModel.flowTopMovies.collectLatest { pagingData  ->
+        jobMovies = lifecycleScope.launch {
+           fragmentViewModel.flowTopMovies.collectLatest { pagingData  ->
                 pagingAdapter.submitData(pagingData)
             }
         }
@@ -62,5 +65,6 @@ class TopMoviesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        jobMovies.cancel()
     }
 }

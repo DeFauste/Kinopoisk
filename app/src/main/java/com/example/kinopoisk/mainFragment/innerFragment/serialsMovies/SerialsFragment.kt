@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentMoviesBinding
 import com.example.kinopoisk.databinding.FragmentSerialsBinding
+import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
@@ -24,10 +25,11 @@ class SerialsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+    private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentViewModel.stateFragmentDescription(true, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(true, id)
         }
     })
     private lateinit var jobMovies: Job

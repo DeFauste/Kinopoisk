@@ -24,7 +24,6 @@ class DescriptionMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val fragmentViewModel: DescriptionFragmentViewModel by activityViewModels()
-    private val mainFragmentViewModel: MainFragmentViewModel by activityViewModels()
 
     private var pair: Pair<Boolean,Int> = Pair(false, 666)
     private val adapter = RecyclerAdapterPerson()
@@ -48,13 +47,13 @@ class DescriptionMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         updatePair()
         binding.topMenu.backButton.setOnClickListener {
-            mainFragmentViewModel.stateFragmentDescription(false, pair.second)
+            fragmentViewModel.stateFragmentDescription(false, pair.second)
         }
     }
 
     private fun updatePair() {
         lifecycleScope.launchWhenCreated {
-            mainFragmentViewModel.stateFragmentDescription.collect() {
+            fragmentViewModel.stateFragmentDescription.collect() {
                 pair = it
                 descriptionUpdate()
                 updatePerson()

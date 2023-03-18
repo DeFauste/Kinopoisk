@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.kinopoisk.databinding.FragmentMainBinding
+import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.MoviesFragment
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
 import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.SerialsFragment
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
+    private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
     private val fragList = listOf(
         NewMovieFragment.newInstance(),
@@ -64,7 +66,7 @@ class MainFragment : Fragment() {
 
     private fun checkStateDescriptionFragment() {
         lifecycleScope.launch {
-            fragmentViewModel.stateFragmentDescription.collect() {
+            fragmentDescriptionViewModel.stateFragmentDescription.collect() {
                 if(it.first) {
                     binding.fragmentDescription.visibility = View.VISIBLE
                 } else {
