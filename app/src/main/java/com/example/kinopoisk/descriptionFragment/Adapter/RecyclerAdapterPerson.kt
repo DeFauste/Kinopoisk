@@ -27,13 +27,13 @@ class RecyclerAdapterPerson() : RecyclerView.Adapter<RecyclerAdapterPerson.Perso
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var cites: List<Person>
+    var movies: List<Person>
     get() = differ.currentList
     set(value) {
         differ.submitList(value)
     }
 
-    override fun getItemCount(): Int = cites.size
+    override fun getItemCount(): Int = movies.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapterPerson.PersonViewHolder {
         return PersonViewHolder(ItemPersonBinding.inflate(
@@ -45,7 +45,7 @@ class RecyclerAdapterPerson() : RecyclerView.Adapter<RecyclerAdapterPerson.Perso
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         holder.binding.apply {
-            val person = cites[position]
+            val person = movies[position]
             namePerson.text = person.name
             val idImg = person.photo
             Glide

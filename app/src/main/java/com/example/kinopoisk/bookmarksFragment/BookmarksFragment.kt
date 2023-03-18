@@ -57,7 +57,10 @@ class BookmarksFragment : Fragment() {
         bookmarksViewModel.getBookmarks()
         lifecycleScope.launchWhenCreated {
             bookmarksViewModel.bookmarksMovie.collect() {
-                adapter.movies = it
+                if (it.isNotEmpty())
+                    adapter.movies = it
+                else
+                    adapter.movies = emptyList()
             }
         }
     }

@@ -1,21 +1,22 @@
 package com.example.kinopoisk.descriptionFragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.kinopoisk.MainActivity
 import com.example.kinopoisk.R
+import com.example.kinopoisk.bookmarksFragment.BookmarksViewModel
+import com.example.kinopoisk.database.MoviesData
 import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
 import com.example.kinopoisk.descriptionFragment.Adapter.RecyclerAdapterPerson
-import com.example.kinopoisk.mainFragment.MainFragmentViewModel
+import com.example.kinopoisk.descriptionFragment.models.modelForDescription.Doc
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -25,7 +26,10 @@ class DescriptionMovieFragment : Fragment() {
 
     private val fragmentViewModel: DescriptionFragmentViewModel by activityViewModels()
 
-    private var pair: Pair<Boolean,Int> = Pair(false, 666)
+    private val bookmarksViewModel: BookmarksViewModel
+        get() = (activity as MainActivity).bookmarksViewModel
+
+    private var pair: Pair<Boolean, Int> = Pair(false, 666)
     private val adapter = RecyclerAdapterPerson()
 
     private lateinit var jobMovie: Job
@@ -49,6 +53,34 @@ class DescriptionMovieFragment : Fragment() {
         binding.topMenu.backButton.setOnClickListener {
             fragmentViewModel.stateFragmentDescription(false, pair.second)
         }
+
+    }
+
+    private fun addBookmarks(movie: Doc) {
+        binding.topMenu.addBtn.setOnClickListener {
+            var urlTrailer = ""
+            try {
+                urlTrailer = movie.watchability.items.get(0).url
+            } catch (e: java.lang.Exception) {
+                Log.e("urlTrailer", e.toString())
+            }
+            with(binding){
+                val m = MoviesData(
+                    id = movie.id,
+                    description = descriptionMovie.text.toString(),
+                    name = nameMovie.text.toString(),
+                    alternativeName = alternativeNameMovie.text.toString(),
+                    country = binding.layoutDescription.countryMovie.text.toString(),
+                    length = movie.movieLength.toString(),
+                    poster = movie.poster.url,
+                    ratingIMB = binding.layoutDescription.ratingIMDB.text.toString(),
+                    ratingKP = binding.layoutDescription.ratingKP.text.toString(),
+                    trailer = urlTrailer,
+                    year = movie.year.toString()
+                )
+                bookmarksViewModel.addMovie(m)
+            }
+        }
     }
 
     private fun updatePair() {
@@ -60,17 +92,19 @@ class DescriptionMovieFragment : Fragment() {
             }
         }
     }
+
     private fun updatePerson() {
         fragmentViewModel.getPersons(pair.second)
         binding.recyclerPerson.adapter = adapter
         lifecycleScope.launchWhenCreated {
             fragmentViewModel.persons.collect() { persons ->
-                if(persons.isNotEmpty()) {
-                    adapter.cites = persons
+                if (persons.isNotEmpty()) {
+                    adapter.movies = persons
                 }
             }
         }
     }
+
     private fun descriptionUpdate() {
         fragmentViewModel.getMovie(pair.second)
 
@@ -79,6 +113,7 @@ class DescriptionMovieFragment : Fragment() {
                 if (response != null) {
                     with(binding) {
                         val movie = response.docs[0]
+                        addBookmarks(movie)
                         loadPoster(movie.poster.url)
                         nameMovie.text = movie.name
                         alternativeNameMovie.text = movie.alternativeName
