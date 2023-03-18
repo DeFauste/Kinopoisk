@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,8 @@ import com.example.kinopoisk.MainActivity
 import com.example.kinopoisk.R
 import com.example.kinopoisk.database.MoviesData
 import com.example.kinopoisk.databinding.FragmentBookmarksBinding
+import com.example.kinopoisk.extensions.hideKeyboard
+import java.util.*
 
 
 class BookmarksFragment : Fragment() {
@@ -21,6 +25,9 @@ class BookmarksFragment : Fragment() {
 
     private val bookmarksViewModel: BookmarksViewModel
         get() = (activity as MainActivity).bookmarksViewModel
+
+    private var timer: Timer = Timer()
+    private val DELAY: Long = 1000
 
     private val adapter = RecyclerAdapterBookmarksMovie(object : onClickListenerBookmarksMovie {
         override fun onCLick(moviesData: MoviesData) {
@@ -45,6 +52,9 @@ class BookmarksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateRecyclerView()
+        searchMovies()
+        openSearch()
+        closeSearch()
     }
 
     private fun initRecyclerView() {
@@ -63,6 +73,63 @@ class BookmarksFragment : Fragment() {
                     adapter.movies = emptyList()
             }
         }
+    }
+
+    private fun searchMovies() {
+        binding.searchBar.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                requireContext().hideKeyboard(requireView())
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                timer.cancel()
+                timer = Timer()
+                timer.schedule(object : TimerTask() {
+                    override fun run() {
+                        lifecycleScope.launchWhenCreated {
+                            bookmarksViewModel.searchMovie("%$newText%")
+                            bookmarksViewModel.searchBookmarksMovie.collect() {
+                                adapter.movies = it
+                            }
+                        }
+                    }
+                }, DELAY)
+
+                return true
+            }
+        })
+    }
+
+    private fun openSearch() {
+        with(binding) {
+            searchBar.searchView.setOnSearchClickListener {
+                searchBar.exitSearch.visibility = View.VISIBLE
+            }
+            searchBar.searchViewHelp.setOnClickListener {
+                searchBar.exitSearch.visibility = View.VISIBLE
+                it.visibility = View.GONE
+                searchBar.searchView.isIconified = false
+                searchBar.searchView.requestFocus()
+            }
+        }
+    }
+
+    private fun closeSearch() {
+        with(binding) {
+            searchBar.exitSearch.setOnClickListener {
+                with(searchBar) {
+                    exitSearch.visibility = android.view.View.GONE
+                    searchView.clearFocus()
+                    searchView.setQuery("", false)
+                    searchView.isIconified = true
+                    searchViewHelp.visibility = android.view.View.VISIBLE
+                }
+                requireContext().hideKeyboard(searchBar.searchView)
+            }
+        }
+        updateRecyclerView()
     }
 
     override fun onDestroy() {

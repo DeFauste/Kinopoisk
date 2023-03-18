@@ -1,6 +1,7 @@
 package com.example.kinopoisk.mainFragment.api
 
 import androidx.annotation.IntRange
+import com.example.kinopoisk.TOKEN_API
 import com.example.kinopoisk.mainFragment.model.ResponsesApi
 import retrofit2.Response
 import retrofit2.http.GET
@@ -24,7 +25,7 @@ interface ApiServiceTopMovie {
             "status=completed&" +
             "name=!null&" +
             "poster.url=!null&" +
-            "token=C2YM9N6-ECGMM50-GFAA00K-Y7FSNBQ")
+            "token=$TOKEN_API")
     suspend fun getMovies(
         @Query("page") @IntRange(from = 1) page: Int = 1,
         @Query("limit") @IntRange(from = 1, to = 10) limit: Int = 10,

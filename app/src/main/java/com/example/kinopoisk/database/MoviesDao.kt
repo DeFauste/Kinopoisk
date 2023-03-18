@@ -14,8 +14,8 @@ interface MoviesDao {
     @Query("SELECT * FROM bookmarks_table ORDER BY id ASC")
     fun readAllMovies(): Flow<List<MoviesData>>
 
-//    @Query("SELECT * FROM bookmarks_table WHERE name=:movieName")
-//    suspend fun search(movieName: String): Flow<List<MoviesData>>?
+    @Query("SELECT * FROM bookmarks_table WHERE name LIKE :movieName OR alternativeName LIKE :movieName")
+    fun search(movieName: String): Flow<List<MoviesData>>
 
     @Query("DELETE FROM bookmarks_table")
     suspend fun deleteMovies()

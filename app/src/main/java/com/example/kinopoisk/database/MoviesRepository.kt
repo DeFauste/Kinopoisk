@@ -9,9 +9,9 @@ class MoviesRepository(private val moviesDao: MoviesDao) {
         moviesDao.addMovies(moviesData)
     }
 
-//    suspend fun searchMovies(moviesData: MoviesData) {
-//        moviesDao.search(moviesData.name)
-//    }
+    fun searchMovies(movieName: String): Flow<List<MoviesData>> {
+       return moviesDao.search(movieName)
+    }
 
     suspend fun deleteMovies(moviesData: MoviesData) {
         moviesDao.deleteMovies()
