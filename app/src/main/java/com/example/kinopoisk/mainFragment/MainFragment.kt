@@ -1,17 +1,22 @@
 package com.example.kinopoisk.mainFragment
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
+import com.example.kinopoisk.extensions.hideKeyboard
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterSearch
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
 import com.example.kinopoisk.mainFragment.innerFragment.newM.NewMovieFragment
@@ -72,7 +77,8 @@ class MainFragment : Fragment() {
         binding.recyclerSearch.layoutManager = LinearLayoutManager(requireActivity())
 
         searchMovies()
-
+        openSearch()
+        closeSearch()
     }
 
     private fun initTabLayout() {
@@ -100,20 +106,19 @@ class MainFragment : Fragment() {
     private fun searchMovies() {
         binding.searchBarLayout.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
-                return true
+                requireContext().hideKeyboard(requireView())
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if(timer != null)
-                    timer.cancel()
-
+                timer.cancel()
                 timer = Timer()
                 timer.schedule(object : TimerTask() {
                     override fun run() {
                         lifecycleScope.launchWhenCreated {
                             if (newText != null && newText.isNotEmpty() && newText.length > 3) {
-                                Toast.makeText(requireContext(), "$newText", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "$newText", Toast.LENGTH_SHORT)
+                                    .show()
                                 fragmentViewModel.flowDynamicSearch(newText.toString()).collect() {
                                     adapterSearch.submitData(it)
                                 }
@@ -127,8 +132,36 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun closeSearch() {
+    private fun openSearch() {
+        with(binding) {
+            searchBarLayout.searchView.setOnSearchClickListener {
+                recyclerSearch.visibility = View.VISIBLE
+                searchBarLayout.exitSearch.visibility = View.VISIBLE
+            }
+            searchBarLayout.searchViewHelp.setOnClickListener {
+                recyclerSearch.visibility = View.VISIBLE
+                searchBarLayout.exitSearch.visibility = View.VISIBLE
+                it.visibility = View.GONE
+                searchBarLayout.searchView.isIconified = false
+                searchBarLayout.searchView.requestFocus()
+            }
+        }
+    }
 
+    private fun closeSearch() {
+        with(binding) {
+            searchBarLayout.exitSearch.setOnClickListener {
+                recyclerSearch.visibility = View.GONE
+                with(searchBarLayout) {
+                    exitSearch.visibility = View.GONE
+                    searchView.clearFocus()
+                    searchView.setQuery("", false)
+                    searchView.isIconified = true
+                    searchViewHelp.visibility = View.VISIBLE
+                }
+                requireContext().hideKeyboard(searchBarLayout.searchView)
+            }
+        }
     }
 
     override fun onDestroyView() {

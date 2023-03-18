@@ -5,20 +5,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/exitSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exitSearch"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/settingsBtn"
         android:layout_marginEnd="5dp"
         android:background="#9EE6E0E8"
+        android:iconifiedByDefault="false"
         android:inputType="textAutoCorrect|textCapWords|textNoSuggestions|text"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-
         />
-
+        <View
+            android:id="@+id/searchViewHelp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/searchView"
+            app:layout_constraintEnd_toEndOf="@id/searchView"
+            app:layout_constraintTop_toTopOf="@id/searchView"
+            android:layout_marginStart="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/searchView"/>
     <ImageButton
         android:id="@+id/settingsBtn"
         android:layout_width="wrap_content"
