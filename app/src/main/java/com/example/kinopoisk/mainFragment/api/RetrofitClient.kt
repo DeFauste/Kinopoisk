@@ -25,4 +25,11 @@ object RetrofitClient {
             .build()
             .create(ApiServiceTypeMovie::class.java)
     }
+    val apiDynamicSearch: ApiDynamicSearch by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://api.kinopoisk.dev/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiDynamicSearch::class.java)
+    }
 }
