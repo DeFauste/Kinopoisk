@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="HeaderTextStyle" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="SearchRecyclerStyle">
+        <item name="android:background">@color/black</item>
+    </style>
 </resources>

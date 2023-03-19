@@ -27,9 +27,7 @@
         android:maxLines="2"
         android:minLines="1"
         android:text="@string/movie_name_example"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        style="@style/HeaderTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/previewImage"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,9 +39,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:text="@string/example_date"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        style="@style/HeaderTextStyle"
         app:layout_constraintStart_toEndOf="@id/countryMovie"
         app:layout_constraintTop_toBottomOf="@id/nameMovie" />
 
@@ -65,9 +61,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="5dp"
         android:text="@string/example_rating"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        style="@style/HeaderTextStyle"
         app:layout_constraintStart_toEndOf="@id/dateMovie"
         app:layout_constraintTop_toBottomOf="@id/nameMovie" />
 
