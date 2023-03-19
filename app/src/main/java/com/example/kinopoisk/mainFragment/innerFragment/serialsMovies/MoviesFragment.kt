@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.R
+import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
 import com.example.kinopoisk.databinding.FragmentMoviesBinding
 import com.example.kinopoisk.databinding.FragmentNewMovieBinding
 import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
@@ -29,7 +31,8 @@ class MoviesFragment : Fragment() {
 
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentDescriptionViewModel.stateFragmentDescription(true, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_mainFragment, id)
+            findNavController().navigate(R.id.action_mainFragment_to_descriptionMovieFragment2)
         }
     })
     private lateinit var jobMovies: Job

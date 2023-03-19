@@ -1,5 +1,7 @@
 package com.example.kinopoisk.mainFragment
 
+import android.content.res.Resources
+import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,9 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentMainBinding
 import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.extensions.hideKeyboard
@@ -30,7 +34,8 @@ class MainFragment : Fragment() {
 
     private val adapterSearch = RecyclerAdapterSearch(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentDescriptionViewModel.stateFragmentDescription(true, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_mainFragment, id)
+            findNavController().navigate(R.id.action_mainFragment_to_descriptionMovieFragment2)
         }
     })
 
@@ -43,17 +48,15 @@ class MainFragment : Fragment() {
         MoviesFragment.newInstance(),
         SerialsFragment.newInstance()
     )
-    private val fragName = listOf(
-        "New",
-        "Top 250",
-        "Movies",
-        "Serials"
-    )
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var resArrayTab: TypedArray
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        resArrayTab = resources.obtainTypedArray(R.array.tab_layout)
     }
 
     override fun onCreateView(
@@ -81,21 +84,8 @@ class MainFragment : Fragment() {
         val adapter = VpAdapterMain(this, fragList)
         binding.viewPagMain.adapter = adapter
         TabLayoutMediator(binding.tabLayoutMain, binding.viewPagMain) { tab, pos ->
-            tab.text = fragName[pos]
+            tab.text = resArrayTab.getString(pos)
         }.attach()
-        checkStateDescriptionFragment()
-    }
-
-    private fun checkStateDescriptionFragment() {
-        lifecycleScope.launch {
-            fragmentDescriptionViewModel.stateFragmentDescription.collect() {
-                if (it.first) {
-                    binding.fragmentDescription.visibility = View.VISIBLE
-                } else {
-                    binding.fragmentDescription.visibility = View.GONE
-                }
-            }
-        }
     }
 
 

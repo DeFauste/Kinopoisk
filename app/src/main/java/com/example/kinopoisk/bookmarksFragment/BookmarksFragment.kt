@@ -9,11 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.MainActivity
 import com.example.kinopoisk.R
 import com.example.kinopoisk.database.MoviesData
 import com.example.kinopoisk.databinding.FragmentBookmarksBinding
+import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.extensions.hideKeyboard
 import java.util.*
 
@@ -29,9 +31,12 @@ class BookmarksFragment : Fragment() {
     private var timer: Timer = Timer()
     private val DELAY: Long = 1000
 
+    private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
+
     private val adapter = RecyclerAdapterBookmarksMovie(object : onClickListenerBookmarksMovie {
         override fun onCLick(moviesData: MoviesData) {
-
+            fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_bookmarksFragment, moviesData.id)
+            findNavController().navigate(R.id.action_bookmarksFragment_to_descriptionMovieFragment2)
         }
     })
 

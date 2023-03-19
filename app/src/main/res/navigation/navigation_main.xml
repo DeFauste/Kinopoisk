@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="com.example.kinopoisk.mainFragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_descriptionMovieFragment2"
+            app:destination="@id/descriptionMovieFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/statisticFragment"
         android:name="com.example.kinopoisk.statisticFragment.StatisticFragment"
@@ -19,5 +23,21 @@
         android:id="@+id/bookmarksFragment"
         android:name="com.example.kinopoisk.bookmarksFragment.BookmarksFragment"
         android:label="fragment_bookmarks"
-        tools:layout="@layout/fragment_bookmarks" />
+        tools:layout="@layout/fragment_bookmarks" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_descriptionMovieFragment2"
+            app:destination="@id/descriptionMovieFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/descriptionMovieFragment2"
+        android:name="com.example.kinopoisk.descriptionFragment.DescriptionMovieFragment"
+        android:label="fragment_description_movie"
+        tools:layout="@layout/fragment_description_movie" >
+        <action
+            android:id="@+id/action_descriptionMovieFragment2_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_descriptionMovieFragment2_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
+    </fragment>
 </navigation>

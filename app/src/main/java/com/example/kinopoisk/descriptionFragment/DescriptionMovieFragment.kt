@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.MainActivity
 import com.example.kinopoisk.R
@@ -29,10 +31,8 @@ class DescriptionMovieFragment : Fragment() {
     private val bookmarksViewModel: BookmarksViewModel
         get() = (activity as MainActivity).bookmarksViewModel
 
-    private var pair: Pair<Boolean, Int> = Pair(false, 666)
+    private var pair: Pair<Int, Int> = Pair(R.id.action_descriptionMovieFragment2_to_mainFragment, 666)
     private val adapter = RecyclerAdapterPerson()
-
-    private lateinit var jobMovie: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class DescriptionMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         updatePair()
         binding.topMenu.backButton.setOnClickListener {
-            fragmentViewModel.stateFragmentDescription(false, pair.second)
+            findNavController().navigate(pair.first)
         }
 
     }
@@ -85,12 +85,12 @@ class DescriptionMovieFragment : Fragment() {
     }
 
     private fun updatePair() {
-        lifecycleScope.launchWhenCreated {
-            fragmentViewModel.stateFragmentDescription.collect() {
+        lifecycleScope.launch() {
+            fragmentViewModel.flowState.collect() {
                 pair = it
-                descriptionUpdate()
-                updatePerson()
             }
+            descriptionUpdate()
+                updatePerson()
         }
     }
 
@@ -109,7 +109,7 @@ class DescriptionMovieFragment : Fragment() {
     private fun descriptionUpdate() {
         fragmentViewModel.getMovie(pair.second)
 
-        jobMovie = lifecycleScope.launch() {
+       lifecycleScope.launch() {
             fragmentViewModel.movie.collect() { response ->
                 if (response != null) {
                     with(binding) {
@@ -144,6 +144,5 @@ class DescriptionMovieFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        jobMovie.cancel()
     }
 }
