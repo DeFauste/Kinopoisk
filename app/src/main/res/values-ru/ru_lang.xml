@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kinopoisk</string>
+    <string name="app_name">Кинопоиск</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="description_example">Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.</string>
     <string name="example_rating">10+</string>
     <string name="example_country">Japan</string>
     <string name="example_date">20-12-2022</string>
-    <string name="button_trailer">Trailer</string>
-    <string name="metric_length">Min</string>
+    <string name="button_trailer">Трэйлер</string>
+    <string name="metric_length">Мин</string>
     <string name="example_length_movie">120</string>
     <string name="example_description">Флот двенадцати колоний Кобола отправляется на поиски планеты Земля. Ребут одноименной космооперы 1978 года</string>
     <string name="example_person">Пол Стенов</string>
     <string name="content_description_play_trailer">Play trailer</string>
-    <string name="main_bottom">MAIN</string>
-    <string name="bookmarks_bottom">Bookmarks</string>
-    <string name="statistic_bottom">Statistic</string>
-    <string name="movie_name_example">Movie name</string>
-    <string name="similar_movie">Similar movie</string>
-    <string name="person_movie">Person</string>
-    <string name="newFragmentName">New</string>
-    <string name="topFragmentName">Top 250</string>
-    <string name="moviesFragmentName">Movies</string>
-    <string name="serialsFragmentName">Serials</string>
-
+    <string name="main_bottom">Главная</string>
+    <string name="bookmarks_bottom">Закладки</string>
+    <string name="statistic_bottom">Статистика</string>
+    <string name="movie_name_example">Название фильма</string>
+    <string name="similar_movie">Альтернативное название</string>
+    <string name="person_movie">Актеры</string>
+    <string name="newFragmentName">Новинки</string>
+    <string name="topFragmentName">Топ 250</string>
+    <string name="moviesFragmentName">Фильмы</string>
+    <string name="serialsFragmentName">Сериалы</string>
     <array name="tab_layout">
         <item>@string/newFragmentName</item>
         <item>@string/topFragmentName</item>
