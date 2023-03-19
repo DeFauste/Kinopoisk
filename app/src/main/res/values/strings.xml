@@ -22,6 +22,7 @@
     <string name="topFragmentName">Top 250</string>
     <string name="moviesFragmentName">Movies</string>
     <string name="serialsFragmentName">Serials</string>
+    <string name="toast_trailer">No trailer</string>
 
     <array name="tab_layout">
         <item>@string/newFragmentName</item>

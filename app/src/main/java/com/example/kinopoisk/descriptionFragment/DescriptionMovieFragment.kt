@@ -1,12 +1,13 @@
 package com.example.kinopoisk.descriptionFragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,7 @@ import com.example.kinopoisk.bookmarksFragment.BookmarksViewModel
 import com.example.kinopoisk.database.MoviesData
 import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
 import com.example.kinopoisk.descriptionFragment.Adapter.RecyclerAdapterPerson
-import com.example.kinopoisk.descriptionFragment.models.modelForDescription.Doc
-import kotlinx.coroutines.Job
+import com.example.kinopoisk.descriptionFragment.models.modelsDescr.Doc
 import kotlinx.coroutines.launch
 
 
@@ -31,13 +31,15 @@ class DescriptionMovieFragment : Fragment() {
     private val bookmarksViewModel: BookmarksViewModel
         get() = (activity as MainActivity).bookmarksViewModel
 
-    private var pair: Pair<Int, Int> = Pair(R.id.action_descriptionMovieFragment2_to_mainFragment, 666)
+    private var pair: Pair<Int, Int> =
+        Pair(R.id.action_descriptionMovieFragment2_to_mainFragment, 666)
     private val adapter = RecyclerAdapterPerson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
+    private var trailer = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -53,18 +55,18 @@ class DescriptionMovieFragment : Fragment() {
         binding.topMenu.backButton.setOnClickListener {
             findNavController().navigate(pair.first)
         }
-
+        binding.buttonTrailer.setOnClickListener {
+            if (trailer.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(trailer)
+                requireActivity().startActivity(intent)
+            } else Toast.makeText(requireActivity(), getString(R.string.toast_trailer), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun addBookmarks(movie: Doc) {
         binding.topMenu.addBtn.setOnClickListener {
-            var urlTrailer = ""
-            try {
-                urlTrailer = movie.watchability.items.get(0).url
-            } catch (e: java.lang.Exception) {
-                Log.e("urlTrailer", e.toString())
-            }
-            with(binding){
+            with(binding) {
                 val m = MoviesData(
                     id = movie.id,
                     description = descriptionMovie.text.toString(),
@@ -75,7 +77,7 @@ class DescriptionMovieFragment : Fragment() {
                     poster = movie.poster.url,
                     ratingIMB = binding.layoutDescription.ratingIMDB.text.toString(),
                     ratingKP = binding.layoutDescription.ratingKP.text.toString(),
-                    trailer = urlTrailer,
+                    trailer = trailer,
                     year = movie.year.toString(),
                     type = movie.type
                 )
@@ -90,7 +92,7 @@ class DescriptionMovieFragment : Fragment() {
                 pair = it
             }
             descriptionUpdate()
-                updatePerson()
+            updatePerson()
         }
     }
 
@@ -109,11 +111,11 @@ class DescriptionMovieFragment : Fragment() {
     private fun descriptionUpdate() {
         fragmentViewModel.getMovie(pair.second)
 
-       lifecycleScope.launch() {
+        lifecycleScope.launch() {
             fragmentViewModel.movie.collect() { response ->
                 if (response != null) {
+                    val movie = response.docs[0]
                     with(binding) {
-                        val movie = response.docs[0]
                         addBookmarks(movie)
                         loadPoster(movie.poster.url)
                         nameMovie.text = movie.name
@@ -126,6 +128,12 @@ class DescriptionMovieFragment : Fragment() {
                         layoutDescription.lengthMovie.text = movie.movieLength.toString()
                         descriptionMovie.text = movie.description
                     }
+                    trailer = try {
+                        movie.videos.trailers[0].url
+                    } catch (e: java.lang.Exception) {
+                        ""
+                    }
+                    println(trailer)
                 }
             }
         }

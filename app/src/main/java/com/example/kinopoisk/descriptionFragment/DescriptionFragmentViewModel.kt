@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinopoisk.R
 import com.example.kinopoisk.descriptionFragment.api.RetrofitClientDescription
-import com.example.kinopoisk.descriptionFragment.models.modelForDescription.ResponsesDescription
 import com.example.kinopoisk.descriptionFragment.models.modelPersons.Person
+import com.example.kinopoisk.descriptionFragment.models.modelsDescr.ResponsesDescr
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +14,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class DescriptionFragmentViewModel : ViewModel() {
-    private var _movie = MutableSharedFlow<ResponsesDescription?>()
+    private var _movie = MutableSharedFlow<ResponsesDescr?>()
     val movie = _movie.asSharedFlow()
 
      private var stateFragmentDescription =

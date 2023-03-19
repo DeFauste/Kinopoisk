@@ -22,6 +22,8 @@
     <string name="topFragmentName">Топ 250</string>
     <string name="moviesFragmentName">Фильмы</string>
     <string name="serialsFragmentName">Сериалы</string>
+    <string name="toast_trailer">Нет трейлера</string>
+
     <array name="tab_layout">
         <item>@string/newFragmentName</item>
         <item>@string/topFragmentName</item>
