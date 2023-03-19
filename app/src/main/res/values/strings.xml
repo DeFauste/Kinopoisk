@@ -18,4 +18,8 @@
     <string name="example_person">Пол Стенов</string>
     <string name="similar_movie">Similar movie</string>
     <string name="person_movie">Person</string>
+    <string name="newFragmentName">New</string>
+    <string name="top_250FragmentName">Top 250</string>
+    <string name="moviesFragmentName">Movies</string>
+    <string name="serialsFragmentName">Serials</string>
 </resources>
