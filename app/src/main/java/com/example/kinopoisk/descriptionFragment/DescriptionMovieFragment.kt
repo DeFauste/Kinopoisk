@@ -76,7 +76,8 @@ class DescriptionMovieFragment : Fragment() {
                     ratingIMB = binding.layoutDescription.ratingIMDB.text.toString(),
                     ratingKP = binding.layoutDescription.ratingKP.text.toString(),
                     trailer = urlTrailer,
-                    year = movie.year.toString()
+                    year = movie.year.toString(),
+                    type = movie.type
                 )
                 bookmarksViewModel.addMovie(m)
             }

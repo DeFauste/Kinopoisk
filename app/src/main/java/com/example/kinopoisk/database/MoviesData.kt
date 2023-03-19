@@ -17,5 +17,6 @@ data class MoviesData(
     val length: String,
     val trailer: String,
     val ratingIMB: String,
-    val ratingKP: String
+    val ratingKP: String,
+    val type: String
 )
