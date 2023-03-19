@@ -19,4 +19,7 @@ interface MoviesDao {
 
     @Query("DELETE FROM bookmarks_table")
     suspend fun deleteMovies()
+
+    @Query("SELECT COUNT(*) FROM bookmarks_table WHERE type = :value")
+    fun getCount(value: String): Int
 }

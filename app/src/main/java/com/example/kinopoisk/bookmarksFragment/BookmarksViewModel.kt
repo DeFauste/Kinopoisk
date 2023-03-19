@@ -36,6 +36,7 @@ class BookmarksViewModel : ViewModel() {
             }
         }
     }
+
     private var _searchBookmarks = MutableSharedFlow<List<MoviesData>>()
     val searchBookmarksMovie = _searchBookmarks.asSharedFlow()
     fun searchMovie(movieName: String) {
@@ -45,4 +46,8 @@ class BookmarksViewModel : ViewModel() {
             }
         }
     }
+
+     fun getCount(value: String) = repository.getCount(
+        value
+    )
 }
