@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,9 +16,10 @@ import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import androidx.paging.LoadState.Loading
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.LoadMoreAdapter
 
 class NewMovieFragment : Fragment() {
     private var _binding: FragmentNewMovieBinding? = null
@@ -32,7 +34,6 @@ class NewMovieFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_descriptionMovieFragment2)
         }
     })
-    private lateinit var jobMovies: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +56,22 @@ class NewMovieFragment : Fragment() {
                 pagingAdapter.submitData(pagingData)
             }
         }
-        binding.recyclerNewMovie.adapter = pagingAdapter
+        binding.recyclerNewMovie.adapter = pagingAdapter.withLoadStateFooter(
+            LoadMoreAdapter {
+                pagingAdapter.retry()
+            }
+        )
         binding.recyclerNewMovie.layoutManager = LinearLayoutManager(requireActivity())
+        load()
+    }
+
+    private fun load() {
+        lifecycleScope.launchWhenCreated {
+            pagingAdapter.loadStateFlow.collect() {
+                val state = it.refresh
+                binding.progressLoad.isVisible = state is Loading
+            }
+        }
     }
 
     companion object {

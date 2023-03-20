@@ -23,6 +23,7 @@
     <string name="moviesFragmentName">Movies</string>
     <string name="serialsFragmentName">Serials</string>
     <string name="toast_trailer">No trailer</string>
+    <string name="retry_btn">Retry</string>
 
     <array name="tab_layout">
         <item>@string/newFragmentName</item>

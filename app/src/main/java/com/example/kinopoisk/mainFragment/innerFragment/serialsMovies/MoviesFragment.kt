@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentDescriptionMovieBinding
@@ -15,6 +17,7 @@ import com.example.kinopoisk.databinding.FragmentMoviesBinding
 import com.example.kinopoisk.databinding.FragmentNewMovieBinding
 import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel
 import com.example.kinopoisk.mainFragment.MainFragmentViewModel
+import com.example.kinopoisk.mainFragment.innerFragment.adpter.LoadMoreAdapter
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.RecyclerAdapterMovie
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.onClickListenerMovie
 import kotlinx.coroutines.Job
@@ -58,11 +61,24 @@ class MoviesFragment : Fragment() {
                 pagingAdapter.submitData(pagingData)
             }
         }
-        binding.recyclerMovies.adapter = pagingAdapter
+        binding.recyclerMovies.adapter = pagingAdapter.withLoadStateFooter(
+            LoadMoreAdapter {
+                pagingAdapter.retry()
+            }
+        )
         binding.recyclerMovies.layoutManager = LinearLayoutManager(requireActivity())
+
+        load()
     }
 
-
+    private fun load() {
+        lifecycleScope.launchWhenCreated {
+            pagingAdapter.loadStateFlow.collect() {
+                val state = it.refresh
+                binding.progressLoad.isVisible = state is LoadState.Loading
+            }
+        }
+    }
     companion object {
         @JvmStatic
         fun newInstance() = MoviesFragment()

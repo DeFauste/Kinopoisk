@@ -1,5 +1,6 @@
 package com.example.kinopoisk.mainFragment
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -12,6 +13,7 @@ import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.TypeMovies
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesPageSource
 
 class MainFragmentViewModel : ViewModel() {
+    val loading = MutableLiveData<Boolean>()
 
     val flowNewMovies = Pager(
         PagingConfig(10,
