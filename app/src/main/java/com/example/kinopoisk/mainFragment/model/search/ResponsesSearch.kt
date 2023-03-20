@@ -1,4 +1,4 @@
-package com.example.kinopoisk.mainFragment.models
+package com.example.kinopoisk.mainFragment.model.search
 
 data class ResponsesSearch(
     val docs: List<Doc>,

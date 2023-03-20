@@ -1,4 +1,4 @@
-package com.example.kinopoisk.bookmarksFragment
+package com.example.kinopoisk.bookmarksFragment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

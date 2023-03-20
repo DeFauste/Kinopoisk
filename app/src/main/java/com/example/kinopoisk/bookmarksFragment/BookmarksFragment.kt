@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.MainActivity
 import com.example.kinopoisk.R
+import com.example.kinopoisk.bookmarksFragment.adapter.RecyclerAdapterBookmarksMovie
+import com.example.kinopoisk.bookmarksFragment.adapter.onClickListenerBookmarksMovie
 import com.example.kinopoisk.database.MoviesData
 import com.example.kinopoisk.databinding.FragmentBookmarksBinding
 import com.example.kinopoisk.descriptionFragment.DescriptionFragmentViewModel

@@ -1,7 +1,7 @@
 package com.example.kinopoisk.mainFragment.api
 
 import com.example.kinopoisk.TOKEN_API
-import com.example.kinopoisk.mainFragment.models.ResponsesSearch
+import com.example.kinopoisk.mainFragment.model.search.ResponsesSearch
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

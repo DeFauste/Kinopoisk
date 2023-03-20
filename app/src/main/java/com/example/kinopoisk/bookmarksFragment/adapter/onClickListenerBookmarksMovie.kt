@@ -1,4 +1,4 @@
-package com.example.kinopoisk.bookmarksFragment
+package com.example.kinopoisk.bookmarksFragment.adapter
 
 import com.example.kinopoisk.database.MoviesData
 

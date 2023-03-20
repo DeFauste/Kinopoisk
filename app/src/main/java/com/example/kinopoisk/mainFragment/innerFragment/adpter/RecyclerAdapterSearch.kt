@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.ItemMovieBinding
-import com.example.kinopoisk.mainFragment.models.Doc
+import com.example.kinopoisk.mainFragment.model.search.Doc
 
 
 class RecyclerAdapterSearch(private val onClickListenerMovie: onClickListenerMovie) :

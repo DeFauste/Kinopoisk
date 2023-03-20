@@ -2,7 +2,7 @@ package com.example.kinopoisk.mainFragment.api
 
 import androidx.annotation.IntRange
 import com.example.kinopoisk.TOKEN_API
-import com.example.kinopoisk.mainFragment.model.ResponsesApi
+import com.example.kinopoisk.mainFragment.model.recyclerLoad.ResponsesApi
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

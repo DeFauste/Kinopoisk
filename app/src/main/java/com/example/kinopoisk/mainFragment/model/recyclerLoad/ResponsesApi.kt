@@ -1,4 +1,4 @@
-package com.example.kinopoisk.mainFragment.model
+package com.example.kinopoisk.mainFragment.model.recyclerLoad
 
 data class ResponsesApi(
     val docs: List<Movies>,
