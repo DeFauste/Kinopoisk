@@ -31,6 +31,8 @@ class SerialsFragment : Fragment() {
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
     private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
+    private lateinit var jobRecycler: Job
+
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
             fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_mainFragment,
@@ -56,7 +58,7 @@ class SerialsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
+        jobRecycler =  lifecycleScope.launch {
             fragmentViewModel.flowTypeSeries.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
@@ -86,6 +88,7 @@ class SerialsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        jobRecycler.cancel()
         _binding = null
     }
 }

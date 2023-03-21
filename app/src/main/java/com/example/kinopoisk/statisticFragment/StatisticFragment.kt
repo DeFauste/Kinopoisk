@@ -58,7 +58,7 @@ class StatisticFragment : Fragment() {
         val anyChartView = binding.anyChartView
         anyChartView.setChart(pie)
 
-        val myThread = Thread() // создаём новый поток
+        val myThread = Thread()
         {
             val movieCount = bookmarksViewModel.getCount("movie")
             val seriesCount = bookmarksViewModel.getCount("tv-series")
@@ -71,11 +71,11 @@ class StatisticFragment : Fragment() {
             data.add(ValueDataEntry("cartoon", cartoonCount))
             data.add(ValueDataEntry("anime", animeCount))
             data.add(ValueDataEntry("tv-show", tvShowsCount))
-            println("### $tvShowsCount")
             lifecycleScope.launchWhenCreated {
                 _flowF.emit(true)
             }
         }.start()
+
         lifecycleScope.launch {
             flowF.collect() {
                 pie.data(data)

@@ -32,13 +32,14 @@ class MoviesFragment : Fragment() {
     private val fragmentViewModel: MainFragmentViewModel by activityViewModels()
     private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
 
+    private lateinit var jobRecycler: Job
+
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
             fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_mainFragment, id)
             findNavController().navigate(R.id.action_mainFragment_to_descriptionMovieFragment2)
         }
     })
-    private lateinit var jobMovies: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,16 +57,12 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
+        jobRecycler = lifecycleScope.launch {
             fragmentViewModel.flowTypeMovie.collectLatest { pagingData  ->
                 pagingAdapter.submitData(pagingData)
             }
         }
-        binding.recyclerMovies.adapter = pagingAdapter.withLoadStateFooter(
-            LoadMoreAdapter {
-                pagingAdapter.retry()
-            }
-        )
+        binding.recyclerMovies.adapter = pagingAdapter
         binding.recyclerMovies.layoutManager = LinearLayoutManager(requireActivity())
 
         load()
@@ -85,6 +82,7 @@ class MoviesFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        jobRecycler.cancel()
         _binding = null
     }
 }

@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.paging.LoadState.Loading
 import com.example.kinopoisk.mainFragment.innerFragment.adpter.LoadMoreAdapter
+import kotlinx.coroutines.Job
 
 class NewMovieFragment : Fragment() {
     private var _binding: FragmentNewMovieBinding? = null
@@ -27,10 +28,14 @@ class NewMovieFragment : Fragment() {
 
     private val fragmentMainViewModel: MainFragmentViewModel by activityViewModels()
     private val fragmentDescriptionViewModel: DescriptionFragmentViewModel by activityViewModels()
+    private lateinit var jobRecycler: Job
 
     private val pagingAdapter = RecyclerAdapterMovie(object : onClickListenerMovie {
         override fun onCLick(id: Int) {
-            fragmentDescriptionViewModel.stateFragmentDescription(R.id.action_descriptionMovieFragment2_to_mainFragment, id)
+            fragmentDescriptionViewModel.stateFragmentDescription(
+                R.id.action_descriptionMovieFragment2_to_mainFragment,
+                id
+            )
             findNavController().navigate(R.id.action_mainFragment_to_descriptionMovieFragment2)
         }
     })
@@ -51,8 +56,8 @@ class NewMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            fragmentMainViewModel.flowNewMovies.collectLatest { pagingData  ->
+        jobRecycler = lifecycleScope.launch {
+            fragmentMainViewModel.flowNewMovies.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }
@@ -78,8 +83,10 @@ class NewMovieFragment : Fragment() {
         @JvmStatic
         fun newInstance() = NewMovieFragment()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        jobRecycler.cancel()
         _binding = null
     }
 }
