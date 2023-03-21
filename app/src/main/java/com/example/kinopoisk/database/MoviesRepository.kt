@@ -18,5 +18,5 @@ class MoviesRepository(private val moviesDao: MoviesDao) {
     }
 
     fun getCount(value: String) = moviesDao.getCount(value)
-
+    suspend fun checkMovie(idValue: String): Boolean = moviesDao.checkMovie(idValue)
 }

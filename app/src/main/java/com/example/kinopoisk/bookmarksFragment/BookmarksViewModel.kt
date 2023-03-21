@@ -23,7 +23,10 @@ class BookmarksViewModel : ViewModel() {
 
     fun addMovie(moviesData: MoviesData) {
         viewModelScope.launch {
-            repository.addMovies(moviesData)
+            if (!repository.checkMovie(moviesData.id.toString()))
+                repository.addMovies(moviesData)
+            else
+                repository.deleteMovies(moviesData)
         }
     }
 
@@ -41,13 +44,13 @@ class BookmarksViewModel : ViewModel() {
     val searchBookmarksMovie = _searchBookmarks.asSharedFlow()
     fun searchMovie(movieName: String) {
         viewModelScope.launch {
-            repository.searchMovies(movieName).collect(){
+            repository.searchMovies(movieName).collect() {
                 _searchBookmarks.emit(it)
             }
         }
     }
 
-     fun getCount(value: String) = repository.getCount(
+    fun getCount(value: String) = repository.getCount(
         value
     )
 }

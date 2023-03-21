@@ -8,7 +8,7 @@ import com.example.kinopoisk.mainFragment.model.recyclerLoad.Movies
 import java.util.*
 
 class NewMoviesPageSource(
-    private val service: ApiServiceNewMovie,
+    private val service: ApiServiceNewMovie
 ) : PagingSource<Int, Movies>() {
     override fun getRefreshKey(state: PagingState<Int, Movies>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
