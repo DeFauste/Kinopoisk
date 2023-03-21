@@ -14,7 +14,7 @@ class MoviesRepository(private val moviesDao: MoviesDao) {
     }
 
     suspend fun deleteMovies(moviesData: MoviesData) {
-        moviesDao.deleteMovies()
+        moviesDao.deleteMovies(moviesData)
     }
 
     fun getCount(value: String) = moviesDao.getCount(value)
