@@ -13,7 +13,6 @@ import com.example.kinopoisk.mainFragment.innerFragment.serialsMovies.TypeMovies
 import com.example.kinopoisk.mainFragment.innerFragment.top.TopMoviesPageSource
 
 class MainFragmentViewModel : ViewModel() {
-    val loading = MutableLiveData<Boolean>()
 
     val flowNewMovies = Pager(
         PagingConfig(10,
