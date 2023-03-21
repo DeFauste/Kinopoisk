@@ -5,32 +5,25 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     val apiNewMovies: ApiServiceNewMovie by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        retrofit
             .create(ApiServiceNewMovie::class.java)
     }
     val apiTopMovie: ApiServiceTopMovie by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        retrofit
             .create(ApiServiceTopMovie::class.java)
     }
     val apiTypeMovie: ApiServiceTypeMovie by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        retrofit
             .create(ApiServiceTypeMovie::class.java)
     }
     val apiDynamicSearch: ApiDynamicSearch by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        retrofit
             .create(ApiDynamicSearch::class.java)
     }
 }
